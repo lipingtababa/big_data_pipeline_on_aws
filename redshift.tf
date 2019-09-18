@@ -21,12 +21,18 @@ variable "az_name"{
   description = "defualt az within us west 2"
 }
 
+#the S3 idendentifier for snapshot of the destroyed redshift instance
+variable "lastredshiftinstance" {
+  type = "string"
+  description = "The S3 idendentifier to store the snapshot of the destroyed redshift instance"
+}
+
 #The real cluster definition
 #Please pay special attention to final_snapshot_identifier
 resource "aws_redshift_cluster" "olap" {
   cluster_identifier = "machi-redshift-cluster"
   database_name      = "dev"
-  master_username    = "david"
+  master_username    = "machi"
   master_password    = "Master2password"
   node_type          = "dc2.large"
   cluster_type       = "single-node"
@@ -36,7 +42,7 @@ resource "aws_redshift_cluster" "olap" {
   automated_snapshot_retention_period  = 1
   port = "${var.port_number}"
   skip_final_snapshot = false
-  final_snapshot_identifier = "lastredshiftinstance"
+  final_snapshot_identifier = "${var.lastredshiftinstance}"
   tags = {
     usage = "study"
   }
