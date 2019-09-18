@@ -21,10 +21,12 @@ variable "az_name"{
   description = "defualt az within us west 2"
 }
 
-resource "aws_redshift_cluster" "default" {
+#The real cluster definition
+#Please pay special attention to final_snapshot_identifier
+resource "aws_redshift_cluster" "olap" {
   cluster_identifier = "machi-redshift-cluster"
   database_name      = "dev"
-  master_username    = "machi"
+  master_username    = "david"
   master_password    = "Master2password"
   node_type          = "dc2.large"
   cluster_type       = "single-node"
@@ -75,6 +77,11 @@ output "sg_id" {
   value = ["${aws_security_group.redshift_sg.id}"]
 }
 
+output "redshift_id" {
+  value = ["${aws_redshift_cluster.olap.id}"]
+}
+
+#Defined here, but not used by the cluster
 resource "aws_subnet" "olap" {
   vpc_id     = "${var.vpc_id}"
   cidr_block = "172.31.64.0/20"
