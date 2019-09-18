@@ -1,2 +1,3 @@
 # terraformexamples
-terraform sceipts for popular cloud services
+There are some Terraform scripts to provision some popular AWS cloud services
+
