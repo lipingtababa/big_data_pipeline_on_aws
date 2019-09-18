@@ -14,8 +14,8 @@ variable "port_number"{
 
 resource "aws_redshift_cluster" "default" {
   cluster_identifier = "machi-redshift-cluster"
-  database_name      = "dev"
-  master_username    = "machi"
+  database_name      = "mydb"
+  master_username    = "foo"
   master_password    = "Mustbe8characters"
   node_type          = "dc2.large"
   cluster_type       = "single-node"
