@@ -24,7 +24,7 @@ variable "az_name"{
 #the S3 idendentifier for snapshot of the destroyed redshift instance
 variable "lastredshiftinstance" {
   type = "string"
-  description = "The S3 idendentifier to store the snapshot of the destroyed redshift instance"
+  description = "Please provide an unique S3 idendentifier to store the snapshot of the to-be-destroyed redshift instance"
 }
 
 #The real cluster definition
