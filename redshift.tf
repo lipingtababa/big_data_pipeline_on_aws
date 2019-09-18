@@ -1,24 +1,10 @@
-#Use US West 2  
-provider "aws" {
-  region     = "us-west-2"
-  #AWS token is stored in ~/.aws/, not declared here 
-}
 
-#pre-provisioned vpc
-variable "vpc_id" {
-  default = "vpc-c5bd6fbd"
-}
+#common parameters are stored in variables.tf
 
 # port number of database 
 variable "port_number"{
   default = 5439
   description = "port no. for psql"
-}
-
-#availability zone 
-variable "az_name"{
-  default = "us-west-2b"
-  description = "defualt az within us west 2"
 }
 
 #the S3 idendentifier for snapshot of the destroyed redshift instance
