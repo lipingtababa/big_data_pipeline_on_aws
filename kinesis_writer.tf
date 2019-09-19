@@ -31,9 +31,7 @@ resource "aws_iam_policy" "stream_writing_policy"{
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": [
-        "kinesis:put*"
-      ],
+      "Action": "kinesis:*",
       "Effect": "Allow",
       "Resource": "*"
     }
@@ -63,9 +61,9 @@ resource "aws_instance" "stream_writer" {
 	instance_type = "t2.micro"
 	count = 1 
 	# SG was declared somewhere else
-	vpc_security_group_ids = ["sg-01ecc668e32822119"]
+	vpc_security_group_ids = ["${var.ec2_sg}"]
 	# key was declared somewhere else
-	key_name = "machi"
+	key_name = "${var.key_name}"
 	# Add a role with enough permission to write into data stream
 	iam_instance_profile  ="${aws_iam_instance_profile.stream_writer_profile.name}"
 
@@ -78,4 +76,8 @@ output "stream_writer_arn"{
 
 output "stream_writer_ip"{
 	value = "${aws_instance.stream_writer[0].public_ip}"
+}
+
+output "stream_writer_role_arn"{
+	value = "${aws_iam_role.stream_writer.arn}"
 }

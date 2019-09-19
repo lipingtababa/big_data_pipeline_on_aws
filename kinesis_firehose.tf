@@ -12,7 +12,7 @@ resource aws_kinesis_firehose_delivery_stream "deliverman"{
 	extended_s3_configuration {
 		bucket_arn = "${aws_s3_bucket.logger_store.arn}"
 		role_arn = "${aws_iam_role.deliverman.arn}"
-		prefix = "YYYY/MM/DD/HH"
+		prefix = "MyAss"
 	}
 	tags = {usage = "logging"}
 }
@@ -55,14 +55,17 @@ resource "aws_iam_policy" "deliverman_policy"{
         "s3:*"
       ],
       "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.logger_store.arn}"
+      "Resource": [
+	"${aws_s3_bucket.logger_store.arn}",
+	"${aws_s3_bucket.logger_store.arn}/*"
+      ]
     },
     {
       "Action": [
         "kinesis:*"
       ],
       "Effect": "Allow",
-      "Resource": "*"
+      "Resource": "${aws_kinesis_stream.kafka.arn}"
 
     }
   ]
