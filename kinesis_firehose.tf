@@ -2,7 +2,13 @@
 resource aws_kinesis_firehose_delivery_stream "deliverman"{
 	name = "deliverman"
 	destination = "extended_s3"
-	server_side_encryption {enabled = false}
+	#server_side_encryption {enabled = false}
+
+	#Read from Kinesis Stream 
+	kinesis_source_configuration {
+		kinesis_stream_arn = "${aws_kinesis_stream.kafka.arn}"
+		role_arn = "${aws_iam_role.deliverman.arn}"
+	}
 	extended_s3_configuration {
 		bucket_arn = "${aws_s3_bucket.logger_store.arn}"
 		role_arn = "${aws_iam_role.deliverman.arn}"
