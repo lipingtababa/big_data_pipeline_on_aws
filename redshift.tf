@@ -30,7 +30,7 @@ resource "aws_redshift_cluster" "olap" {
   skip_final_snapshot = false
   final_snapshot_identifier = "${var.lastredshiftinstance}"
   tags = {
-    usage = "study"
+    usage = "logging"
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_security_group" "redshift_sg" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
   tags = {
-    usage = "study"
+    usage = "logging"
   }
 }
 
@@ -80,6 +80,6 @@ resource "aws_subnet" "olap" {
   availability_zone  = "${var.az_name}"
 
   tags = {
-    usage = "study"
+    usage = "logging"
   }
 }

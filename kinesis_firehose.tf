@@ -8,7 +8,7 @@ resource aws_kinesis_firehose_delivery_stream "deliverman"{
 		role_arn = "${aws_iam_role.deliverman.arn}"
 		prefix = "YYYY/MM/DD/HH"
 	}
-	tags = {usage = "study"}
+	tags = {usage = "logging"}
 }
 
 #Define a user role for this deliverman so it can read from upstream kinesis data stream and write into s3 in downstream
@@ -29,7 +29,7 @@ resource "aws_iam_role" "deliverman"{
 	]
 	}
 EOF
-	tags = {usage="study"}
+	tags = {usage="logging"}
 }
 
 resource "aws_iam_role_policy_attachment" "attach_policy_and_role" {

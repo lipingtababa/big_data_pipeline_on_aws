@@ -6,7 +6,7 @@ resource aws_kinesis_stream "kafka"{
 	retention_period = 48
 	enforce_consumer_deletion = true
 	encryption_type = "NONE"
-	tags = {usage = "study"}
+	tags = {usage = "logging"}
 }
 
 output "kafka_name" {
