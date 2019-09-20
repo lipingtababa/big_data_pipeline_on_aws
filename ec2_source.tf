@@ -59,13 +59,31 @@ resource "aws_instance" "stream_writer" {
 	# Stream writer must use redhat enterprise or in this case, AWS linux
 	ami = "ami-04b762b4289fba92b"
 	instance_type = "t2.micro"
-	count = 1 
+	count = 1
 	# SG was declared somewhere else
 	vpc_security_group_ids = ["${var.ec2_sg}"]
+
 	# key was declared somewhere else
 	key_name = "${var.key_name}"
+
 	# Add a role with enough permission to write into data stream
 	iam_instance_profile  ="${aws_iam_instance_profile.stream_writer_profile.name}"
+
+	provisioner "local-exec" {
+		command = "echo The server IP address is ${self.public_ip}"
+		on_failure = "continue"
+	}
+	#provisioner "file" {
+	#	source      = "./putrecord.sh"
+	#	destination = "/tmp/putrecord.sh"
+	#}
+
+	#provisioner "remote-exec" {
+	#	inline = [
+	#		"chmod +x /tmp/putrecord.sh",
+	#		"nohup /tmp/script.sh &",
+	#	]
+	#}
 
 	tags= {usage="logging"}
 }

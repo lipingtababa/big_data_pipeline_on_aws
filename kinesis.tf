@@ -16,5 +16,3 @@ output "kafka_name" {
 output "kafka_arn" {
   value = ["${aws_kinesis_stream.kafka.arn}"]
 }
-
-

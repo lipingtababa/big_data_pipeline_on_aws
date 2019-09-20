@@ -12,7 +12,7 @@ resource aws_kinesis_firehose_delivery_stream "deliverman"{
 	extended_s3_configuration {
 		bucket_arn = "${aws_s3_bucket.logger_store.arn}"
 		role_arn = "${aws_iam_role.deliverman.arn}"
-		prefix = "MyAss"
+		prefix = "Logger"
 	}
 	tags = {usage = "logging"}
 }
